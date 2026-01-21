@@ -1,52 +1,43 @@
-/* Animated Mesh Background */
+/* Futuristic Background with Subtle Motion */
 .stApp {
-    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #16213e 50%, #687f9b 100%);
-    background-size: 200% 200%;
-    animation: gradientMove 10s ease infinite;
+    background: radial-gradient(circle at top right, #0a0a12, #10101e, #050505);
+    color: #e0e0ff;
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Glassmorphism Chat Bubbles */
+/* Glassmorphism Chat Containers */
 [data-testid="stChatMessage"] {
     background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 24px !important;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    margin: 10px 0px;
-    padding: 15px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    margin: 12px 0px;
+    padding: 1.5rem;
 }
 
-/* Assistant Message - Neon Cyan Glow */
+/* Assistant Message - Neon Cyan Edge */
 [data-testid="stChatMessageAssistant"] {
-    border-left: 5px solid #d7e6e9 !important;
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+    border-left: 4px solid #f7f7f7 !important;
+    box-shadow: -5px 0 15px rgba(252, 255, 255, 0.1);
 }
 
-/* User Message - Neon Purple Glow */
+/* User Message - Cyber Purple Edge */
 [data-testid="stChatMessageUser"] {
-    border-left: 5px solid #9d50bb !important;
-    box-shadow: 0 0 15px rgba(157, 80, 187, 0.1);
+    border-left: 4px solid #eceaee !important;
+    box-shadow: -5px 0 15px rgba(10, 10, 11, 0.1);
 }
 
-/* Hide Streamlit Header/Footer for Clean Look */
-header, footer {visibility: hidden;}
-
-/* Custom Chat Input */
-.stChatInputContainer {
-    padding: 20px;
-    background: transparent !important;
+/* Customizing the Sidebar into a Control Deck */
+[data-testid="stSidebar"] {
+    background-color: rgba(5, 5, 10, 0.9) !important;
+    border-right: 1px solid rgba(206, 230, 231, 0.2);
 }
 
+/* Sleek Glowing Input Box */
 .stChatInputContainer textarea {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    color: white !important;
-    border-radius: 15px !important;
+    background: rgba(10, 10, 20, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
 }
