@@ -1,0 +1,26 @@
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #2a2d3e;
+    border-radius: 10px;
+}
+
+/* Main Background */
+.stApp {
+    background-color: #0e1117;
+    color: #ffffff;
+}
+
+/* Style the chat input box */
+.stChatInputContainer {
+    padding-bottom: 20px;
+}
+
+/* Avatar styling */
+[data-testid="stChatMessage"] {
+    border-radius: 15px;
+    margin-bottom: 10px;
+    background-color: #1e2130;
+}
