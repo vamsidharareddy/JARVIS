@@ -1,61 +1,66 @@
 import streamlit as st
 from brain import JarvisBrain
+import time
 
-# 1. Page Configuration
-st.set_page_config(page_title="Jarvis OS", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="JARVIS v2.0", page_icon="🌐", layout="wide")
 
-# 2. Inject Custom CSS
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+# Load our new Glassmorphism CSS
+with open("assets/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-local_css("assets/style.css")
-
-# 3. Sidebar for Settings & Status
+# Sidebar - System Diagnostics
 with st.sidebar:
-    st.image("https://img.icons8.com/clouds/200/iron-man.png", width=100)
-    st.title("System Controls")
-    st.markdown("---")
+    st.markdown("<h1 style='color: #00f2fe;'>SYSTEM OS</h1>", unsafe_allow_html=True)
+    st.divider()
     
-    # Model Status
-    st.success("Core Engine: Phi-3 Mini (Online)")
-    st.info("Vector DB: Pinecone (Connected)")
+    # Pulsing Status Indicator
+    st.markdown("""
+        <div style='display: flex; align-items: center;'>
+            <div style='height: 10px; width: 10px; background-color: #00ff00; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 10px #00ff00;'></div>
+            <p style='margin: 0;'>Core: ONLINE</p>
+        </div>
+    """, unsafe_allow_html=True)
     
-    # Clear Chat Button
-    if st.button("Clear Memory", use_container_width=True):
+    st.info("Memory: 3072-dim Vector Space")
+    if st.button("🔄 Reset Neural Link"):
         st.session_state.messages = []
         st.rerun()
-    
-    st.markdown("---")
-    st.caption("Jarvis Enterprise OS v2.4")
 
-# 4. Initialize Brain & History
+# Main UI
+st.markdown("<h1 style='text-align: center; color: white; text-shadow: 0 0 20px #7000ff;'>J.A.R.V.I.S.</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; opacity: 0.6;'>Neural Network Interface • Phi-3 Mini Engine</p>", unsafe_allow_html=True)
+
 if "jarvis" not in st.session_state:
     st.session_state.jarvis = JarvisBrain()
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [{"role": "assistant", "content": "Neural link established. How can I assist, sir?"}]
 
-# 5. Chat Interface
-st.title("⚡ Jarvis AI")
-st.subheader("How can I assist you today, Sir?")
-
-# Display messages with Material Icons
+# Render Messages
 for msg in st.session_state.messages:
-    # Use Material Icons for a futuristic look
-    avatar = ":material/person:" if msg["role"] == "user" else ":material/smart_toy:"
-    with st.chat_message(msg["role"], avatar=avatar):
+    icon = "👤" if msg["role"] == "user" else "🤖"
+    with st.chat_message(msg["role"], avatar=icon):
         st.markdown(msg["content"])
 
-# User Input with Spinner
-if prompt := st.chat_input("Input command..."):
+# Command Input
+if prompt := st.chat_input("Enter command..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user", avatar=":material/person:"):
+    with st.chat_message("user", avatar="👤"):
         st.markdown(prompt)
 
-    with st.chat_message("assistant", avatar=":material/smart_toy:"):
-        with st.status("Analyzing neural patterns...", expanded=True) as status:
-            response = st.session_state.jarvis.ask_jarvis(prompt)
-            status.update(label="Response generated!", state="complete", expanded=False)
-        st.markdown(response)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+    with st.chat_message("assistant", avatar="🤖"):
+        # Advanced "Processing" visual
+        placeholder = st.empty()
+        placeholder.markdown("🔍 *Scanning database...*")
+        
+        response = st.session_state.jarvis.ask_jarvis(prompt)
+        
+        # Typewriter effect for realism
+        full_response = ""
+        for char in response:
+            full_response += char
+            placeholder.markdown(full_response + "▌")
+            time.sleep(0.01)
+        placeholder.markdown(full_response)
+        
+    st.session_state.messages.append({"role": "assistant", "content": response})
