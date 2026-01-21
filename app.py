@@ -1,66 +1,61 @@
 import streamlit as st
-from brain import JarvisBrain
 import time
+from brain import JarvisBrain
 
-st.set_page_config(page_title="JARVIS v2.0", page_icon="🌐", layout="wide")
+st.set_page_config(page_title="JARVIS OS", page_icon="💠", layout="wide")
 
-# Load our new Glassmorphism CSS
+# Injecting the new CSS
 with open("assets/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-# Sidebar - System Diagnostics
+# --- SIDEBAR: SYSTEM DIAGNOSTICS ---
 with st.sidebar:
-    st.markdown("<h1 style='color: #00f2fe;'>SYSTEM OS</h1>", unsafe_allow_html=True)
-    st.divider()
+    st.markdown("<h2 style='color: #00d2ff; letter-spacing: 2px;'>SYSTEM CORE</h2>", unsafe_allow_html=True)
+    st.write("---")
     
-    # Pulsing Status Indicator
-    st.markdown("""
-        <div style='display: flex; align-items: center;'>
-            <div style='height: 10px; width: 10px; background-color: #00ff00; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 10px #00ff00;'></div>
-            <p style='margin: 0;'>Core: ONLINE</p>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.info("Memory: 3072-dim Vector Space")
-    if st.button("🔄 Reset Neural Link"):
+    # Status Indicators
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric(label="Uptime", value="99.9%")
+    with col2:
+        st.metric(label="Latency", value="24ms")
+        
+    st.write("---")
+    if st.button("🗑️ Wipe Memory Cache", use_container_width=True):
         st.session_state.messages = []
         st.rerun()
 
-# Main UI
-st.markdown("<h1 style='text-align: center; color: white; text-shadow: 0 0 20px #7000ff;'>J.A.R.V.I.S.</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; opacity: 0.6;'>Neural Network Interface • Phi-3 Mini Engine</p>", unsafe_allow_html=True)
+# --- MAIN INTERFACE ---
+st.markdown("<h1 style='text-align: center; font-family: monospace; color: white;'>J.A.R.V.I.S. INTERFACE</h1>", unsafe_allow_html=True)
 
 if "jarvis" not in st.session_state:
     st.session_state.jarvis = JarvisBrain()
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "Neural link established. How can I assist, sir?"}]
+    st.session_state.messages = []
 
-# Render Messages
-for msg in st.session_state.messages:
-    icon = "👤" if msg["role"] == "user" else "🤖"
-    with st.chat_message(msg["role"], avatar=icon):
-        st.markdown(msg["content"])
+# Displaying chat with custom icons
+for message in st.session_state.messages:
+    avatar = "🛰️" if message["role"] == "assistant" else "👨‍🚀"
+    with st.chat_message(message["role"], avatar=avatar):
+        st.markdown(message["content"])
 
-# Command Input
-if prompt := st.chat_input("Enter command..."):
+# User Input Logic
+if prompt := st.chat_input("Input Command..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user", avatar="👤"):
+    with st.chat_message("user", avatar="👨‍🚀"):
         st.markdown(prompt)
 
-    with st.chat_message("assistant", avatar="🤖"):
-        # Advanced "Processing" visual
-        placeholder = st.empty()
-        placeholder.markdown("🔍 *Scanning database...*")
+    with st.chat_message("assistant", avatar="🛰️"):
+        # Simulated Typewriter Response
+        response_placeholder = st.empty()
+        full_response = st.session_state.jarvis.ask_jarvis(prompt)
         
-        response = st.session_state.jarvis.ask_jarvis(prompt)
-        
-        # Typewriter effect for realism
-        full_response = ""
-        for char in response:
-            full_response += char
-            placeholder.markdown(full_response + "▌")
-            time.sleep(0.01)
-        placeholder.markdown(full_response)
-        
-    st.session_state.messages.append({"role": "assistant", "content": response})
+        current_text = ""
+        for char in full_response:
+            current_text += char
+            response_placeholder.markdown(current_text + "▌")
+            time.sleep(0.01) # Speed of typing
+        response_placeholder.markdown(current_text)
+
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
