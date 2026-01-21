@@ -1,43 +1,43 @@
-/* Futuristic Background with Subtle Motion */
+/* 2026 Mesh Gradient Background */
 .stApp {
-    background: radial-gradient(circle at top right, #0a0a12, #10101e, #050505);
-    color: #e0e0ff;
+    background: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+    background-color: #050508;
+    color: #f0f0ff;
 }
 
-/* Glassmorphism Chat Containers */
+/* Bioluminescent Message Containers */
 [data-testid="stChatMessage"] {
-    background: rgba(255, 255, 255, 0.03) !important;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 0, 0, 0.15) !important;
-    border-radius: 20px !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    margin: 12px 0px;
-    padding: 1.5rem;
+    background: rgba(15, 15, 25, 0.7) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
 
-/* Assistant Message - Neon Cyan Edge */
+/* Cyan Glow for Jarvis */
 [data-testid="stChatMessageAssistant"] {
-    border-left: 4px solid #f7f7f7 !important;
-    box-shadow: -5px 0 15px rgba(252, 255, 255, 0.1);
+    border-bottom: 2px solid #00E8FF;
+    box-shadow: 0 10px 30px -10px rgba(0, 232, 255, 0.2);
 }
 
-/* User Message - Cyber Purple Edge */
+/* Violet Glow for User */
 [data-testid="stChatMessageUser"] {
-    border-left: 4px solid #eceaee !important;
-    box-shadow: -5px 0 15px rgba(10, 10, 11, 0.1);
+    border-bottom: 2px solid #8A00FF;
+    box-shadow: 0 10px 30px -10px rgba(138, 0, 255, 0.2);
 }
 
-/* Customizing the Sidebar into a Control Deck */
+/* Liquid Chrome Sidebar */
 [data-testid="stSidebar"] {
-    background-color: rgba(5, 5, 10, 0.9) !important;
-    border-right: 1px solid rgba(206, 230, 231, 0.2);
+    background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%) !important;
+    border-right: 1px solid #3FFFB222;
 }
 
-/* Sleek Glowing Input Box */
-.stChatInputContainer textarea {
-    background: rgba(10, 10, 20, 0.8) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    color: #ffffff !important;
-    border-radius: 12px !important;
+/* Neon Text Accents */
+h1, h2, h3 {
+    background: linear-gradient(90deg, #00E8FF, #8A00FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
 }
